@@ -18,5 +18,5 @@ const videoController = require('../video-controller/video-controller');
 
 // Make sure to use the correct middleware and controller function
 router.post('/upload', videoUpload.single('video'), videoController.addVideo);
-
+router.get('/showVideo',videoController.showVideo);
 module.exports = router;

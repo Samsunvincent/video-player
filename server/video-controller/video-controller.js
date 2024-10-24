@@ -1,15 +1,4 @@
 
-// const videoSchema = require('../db/model/video_Model');
-// const dotenv = require('dotenv');
-// dotenv.config();
-// const { success_function, error_function } = require('../utils/response-Handler');
-
-// exports.addVideo = async function(req,res){
-//     const{title,description} = req.body;
-
-//     console.log(title);
-// }
-
 
 const videoSchema = require('../db/model/video_Model');
 const dotenv = require('dotenv');
@@ -45,3 +34,29 @@ exports.addVideo = async function(req, res) {
         res.status(500).json(error_function('Failed to upload video', err));
     }
 };
+
+exports.showVideo = async function(req,res){
+   try {
+    let video_Data = await videoSchema.find();
+    console.log("video_Data",video_Data);
+
+    let response = success_function({
+        success : true,
+        statusCode : 200,
+        message : "success",
+        data : video_Data,
+    });
+    res.status(response.statusCode).send(response);
+    return;
+   } catch (error) {
+        console.log("error",error)
+
+        let response = error_function({
+            success : false,
+            statusCode : 400,
+            message : "Something went wrong"
+        });
+        res.status(response.statusCode).send(resopnse);
+        return;
+   }
+}
